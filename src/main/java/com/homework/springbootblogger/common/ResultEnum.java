@@ -8,7 +8,8 @@ package com.homework.springbootblogger.common;
  */
 public enum  ResultEnum implements IResultEnum{
 
-    SUCCESS(0, "成功"),
+    SUCCESS(200, "成功"),
+    FAILURE(-1, "系统错误"),
 
     SAVE_ERROR(1, "保存失败!"),
 

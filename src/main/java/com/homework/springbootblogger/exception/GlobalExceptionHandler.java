@@ -1,5 +1,7 @@
 package com.homework.springbootblogger.exception;
 
+import com.homework.springbootblogger.common.IResultEnum;
+import com.homework.springbootblogger.common.ResultEnum;
 import com.homework.springbootblogger.util.R;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -18,23 +20,30 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {
-    @ExceptionHandler(value = Exception.class)
-    public ModelAndView defaultErrorHandler(HttpServletRequest req, Exception e) throws Exception {
+    @ExceptionHandler(value = Throwable.class)
+    public R defaultErrorHandler(HttpServletRequest req, Throwable e) {
 
         log.error("------------------>捕捉到全局异常", e);
 
-        ModelAndView mav = new ModelAndView();
-        mav.addObject("exception", e);
-        mav.addObject("url", req.getRequestURL());
-        mav.setViewName("error");
-        return mav;
+        log.error(e.getMessage(),e);
+
+        return R.FAILURE;
     }
 
     @ExceptionHandler(value = MyException.class)
     @ResponseBody
-    public R jsonErrorHandler(HttpServletRequest req, MyException e) throws Exception {
+    public R jsonErrorHandler(HttpServletRequest req, MyException e) {
 
+        IResultEnum iResultEnum = e.getResultEnum();
+        if (iResultEnum == null){
+
+        }
+
+        if (e.getCause() !=null){
+            log.error(e.getMessage(),e);
+        }
         //TODO 错误日志处理
-        return R.fail(e.getMessage(), "some data");
+        return new R(iResultEnum,e.getData());
+
     }
 }

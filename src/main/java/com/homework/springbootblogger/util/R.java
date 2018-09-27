@@ -63,7 +63,7 @@ public class R {
 	 * @Author: Mr.Zhang
 	 * @Date: 2018/9/26 10:43
 	 */
-	public static String turnR(Object object) throws JsonProcessingException {
+	public static String turnR(Object object) {
 		Map<String,Object> resMap = new HashMap<>();
 		resMap.put("code", "200");
 		resMap.put("msg", "操作成功");
@@ -71,7 +71,12 @@ public class R {
 
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-		String result = mapper.writeValueAsString(resMap);
+		String result = null;
+		try {
+			result = mapper.writeValueAsString(resMap);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
 		log.info("返回结果：" + result);
 		return result;
 	}

@@ -7,10 +7,7 @@ import com.homework.springbootblogger.service.IUserService;
 import com.homework.springbootblogger.util.R;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -74,6 +71,13 @@ public class UserController {
 
         Object userObject = iUserService.getAllUser();
         return R.turnR(userObject);
+    }
+
+    @GetMapping(value = "/user/{Id}")
+    public Object getUserById(@PathVariable("Id") @RequestParam(value = "Id", required = false) Integer Id){
+
+         User user= iUserService.findUserById(Id);
+        return R.turnR(user);
     }
 
 

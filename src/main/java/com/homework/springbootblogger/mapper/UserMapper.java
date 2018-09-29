@@ -1,6 +1,7 @@
 package com.homework.springbootblogger.mapper;
 
 import com.homework.springbootblogger.model.User;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -13,4 +14,6 @@ import java.util.List;
 public interface UserMapper {
 
     List<User> selectAllUser();
+
+    User selectUserById(@Param("Id") Integer Id);
 }

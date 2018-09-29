@@ -16,4 +16,6 @@ public interface IUserService {
     List<User> findAllUser(int pageNum, int pageSize);
 
     List<User> getAllUser();
+
+    User findUserById(Integer id);
 }
